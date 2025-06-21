@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, Clock, User } from "lucide-react";
+import { Calendar, User } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { getNewsBySlug } from "@/src/external/lib";
+import { getNewsBySlug } from "@/src/infra/functions";
 import { ShareButtons } from "../components/share-buttons";
 import { BackButton } from "../components/back-button";
 
@@ -12,9 +12,9 @@ interface Props {
   slug: string;
 }
 
-export function NewsSection({ slug }: Props) {
-  const news = getNewsBySlug(slug);
-
+export async function NewsSection({ slug }: Props) {
+  const news = await getNewsBySlug(slug);
+  console.log(news)
   if (!news) {
     notFound();
   }
@@ -35,13 +35,16 @@ export function NewsSection({ slug }: Props) {
         <article className="max-w-2xl mx-auto bg-white rounded-lg shadow-sm overflow-hidden">
           <div className="relative h-64 md:h-96 w-full">
             <Image
-              src={news.coverImage || "/placeholder.svg"}
+              src={news.coverPhoto.url|| "/placeholder.svg"}
               alt={news.title}
               fill
               className="object-cover"
             />
-            <div className="absolute top-6 left-6">
-              <Badge variant="default">{news.category}</Badge>
+            <div className="absolute top-6 left-6 flex gap-2">
+              {news.category&& news.category.map((categorie,index)=>(
+                <Badge variant="default" key={index}>{categorie.name}</Badge>
+
+              ))}
             </div>
           </div>
 
@@ -52,31 +55,28 @@ export function NewsSection({ slug }: Props) {
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6 pb-6 border-b">
               <div className="flex items-center space-x-1">
                 <User className="h-4 w-4" />
-                <span>{news.author}</span>
+                <span>{news.autor.name}</span>
               </div>
               <div className="flex items-center space-x-1">
                 <Calendar className="h-4 w-4" />
-                <span>{formatDate(news.publishedAt)}</span>
+                <span>{formatDate(news.createdAt)}</span>
               </div>
-              <div className="flex items-center space-x-1">
-                <Clock className="h-4 w-4" />
-                <span>{news.readTime} de leitura</span>
-              </div>
+             
             </div>
 
             <div className="text-xl text-gray-700 mb-8 p-4 bg-gray-50 rounded-lg border-l-4 border-blue-600">
-              {news.excerpt}
+              {news.content.text}
             </div>
 
             <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed">
-              <p>{news.content}</p>
+              <p>{news.description}</p>
             </div>
 
             <div className="mt-12 pt-8 border-t">
               <ShareButtons
                 url={`/news/${news.slug}`}
                 title={news.title}
-                description={news.excerpt}
+                description={news.content.text}
               />
             </div>
           </div>
@@ -84,18 +84,13 @@ export function NewsSection({ slug }: Props) {
 
         <div className="max-w-3xl mx-auto mt-8 bg-white rounded-lg shadow-sm p-6">
           <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center">
-              <User className="h-8 w-8 text-white" />
-            </div>
+            <Image src={news.autor.photo.url} width={32} height={32} alt={news.autor.name} objectFit="cover" className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center"/>
             <div>
               <h3 className="text-lg font-semibold text-gray-900">
-                {news.author}
+                {news.autor.name}
               </h3>
-              <p className="text-gray-600">
-                Jornalista especializado em {news.category.toLowerCase()}
-              </p>
               <Link
-                href="/about"
+                href={`/about/${news.autor.id}`}
                 className="text-blue-600 hover:text-blue-700 text-sm font-medium"
               >
                 Ver perfil completo →

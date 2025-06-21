@@ -3,11 +3,11 @@ import Image from "next/image"
 import { Calendar, User } from "lucide-react"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { NewsItem } from "@/src/external/lib"
+import { Post } from "@/src/dtos/Post"
 
 
 interface NewsCardProps {
-  news: NewsItem
+  news: Post
 }
 
 export function NewsCard({ news }: NewsCardProps) {
@@ -23,11 +23,14 @@ export function NewsCard({ news }: NewsCardProps) {
     <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <Link href={`/news/${news.slug}`}>
         <div className="relative h-48 w-full">
-          <Image src={news.coverImage || "/placeholder.svg"} alt={news.title} fill className="object-cover" />
-          <div className="absolute top-4 left-4">
-            <Badge variant="default">
-              {news.category}
+          <Image src={news.coverPhoto.url || "/placeholder.svg"} alt={news.title} fill className="object-cover" />
+          <div className="absolute top-4 left-4 flex gap-1.5">
+            {news.category&& news.category.map((category,index)=>(
+            <Badge variant="default" key={index}>
+              {category.name}
             </Badge>
+
+            ))}
           </div>
         </div>
       </Link>
@@ -41,17 +44,17 @@ export function NewsCard({ news }: NewsCardProps) {
       </CardHeader>
 
       <CardContent className="pt-0">
-        <p className="text-gray-600 mb-4 line-clamp-3">{news.excerpt}</p>
+        <p className="text-gray-600 mb-4 line-clamp-3">{news.content.text}</p>
 
         <div className="flex items-center justify-between text-xs text-gray-500">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
               <User className="h-4 w-4" />
-              <span>{news.author}</span>
+              <span>{news.autor.name}</span>
             </div>
             <div className="flex items-center space-x-1">
               <Calendar className="h-4 w-4" />
-              <span>{formatDate(news.publishedAt)}</span>
+              <span>{formatDate(news.createdAt)}</span>
             </div>
           </div>
        

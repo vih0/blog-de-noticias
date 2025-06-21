@@ -1,10 +1,19 @@
-import { Mail, Linkedin, Twitter, BookOpen, Users } from "lucide-react"
+import { Mail, Linkedin, Twitter, BookOpen } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BackButton } from "../components/back-button"
-
-export function AboutSection() {
+import { getAuthorBySlug } from "@/src/infra/functions"
+import { notFound } from "next/navigation"
+import Image from "next/image"
+interface Props {
+  id:string
+}
+export async function AboutSection({id}:Props) {
+  const autor = await getAuthorBySlug(id)
+  if(!autor){
+    return notFound()
+  }
   return (
     <div className="min-h-screen max-w-4xl mx-auto bg-gray-50 mt-6">
        <BackButton/>
@@ -12,12 +21,11 @@ export function AboutSection() {
           <Card className="mb-8 overflow-hidden bg-gradient-to-r from-blue-600 to-blue-800">
             <div className=" text-white p-8">
               <div className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
-                <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center">
-                  <Users className="h-16 w-16 text-white" />
-                </div>
+                <Image src={autor.photo.url} alt={autor.name} width={128} height={128} className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center"/>
+                
                 <div className="text-center md:text-left">
-                  <h1 className="text-3xl md:text-4xl font-bold mb-2">Equipe NewsHub</h1>
-                  <p className="text-xl text-blue-100 mb-4">Jornalistas dedicados a trazer informação de qualidade</p>
+                  <h1 className="text-3xl md:text-4xl font-bold mb-2">{autor.name}</h1>
+                  <p className="text-xl text-blue-100 mb-4">Comunicando e inovando na forma de distribuir informação</p>
                   <div className="flex flex-wrap justify-center md:justify-start gap-4">
                     <Button
                       variant="outline"
@@ -57,24 +65,12 @@ export function AboutSection() {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <BookOpen className="h-5 w-5 text-blue-600" />
-                    <span>Nossa História</span>
+                    <span>Biografia</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="prose prose-gray max-w-none">
                   <p>
-                    O NewsHub nasceu em 2020 com a missão de democratizar o acesso à informação de qualidade. Nossa
-                    equipe é composta por jornalistas experientes e especialistas em diversas áreas, unidos pela paixão
-                    de contar histórias que importam.
-                  </p>
-                  <p>
-                    Acreditamos que o jornalismo de qualidade é fundamental para uma sociedade informada e democrática.
-                    Por isso, nos dedicamos a produzir conteúdo factual, bem pesquisado e apresentado de forma clara e
-                    acessível.
-                  </p>
-                  <p>
-                    Nosso compromisso é com a verdade, a transparência e o respeito aos nossos leitores. Cada notícia
-                    publicada passa por um rigoroso processo de verificação e edição, garantindo a precisão e
-                    confiabilidade das informações.
+                    {autor.bio}
                   </p>
                 </CardContent>
               </Card>
@@ -85,9 +81,7 @@ export function AboutSection() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-700 leading-relaxed">
-                    Informar, educar e inspirar nossa audiência através de jornalismo ético e de qualidade. Buscamos ser
-                    uma fonte confiável de notícias, oferecendo perspectivas equilibradas sobre os acontecimentos que
-                    moldam nosso mundo.
+                   {autor.mission}
                   </p>
                 </CardContent>
               </Card>
@@ -134,19 +128,10 @@ export function AboutSection() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    {[
-                      "Tecnologia",
-                      "Ciência",
-                      "Negócios",
-                      "Saúde",
-                      "Meio Ambiente",
-                      "Política",
-                      "Cultura",
-                      "Esportes",
-                    ].map((area) => (
-                      <div key={area} className="flex items-center space-x-2">
+                    {autor.temasAbordados.map((area) => (
+                      <div key={area.id} className="flex items-center space-x-2">
                         <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                        <span className="text-gray-700">{area}</span>
+                        <span className="text-gray-700">{area.nome}</span>
                       </div>
                     ))}
                   </div>
