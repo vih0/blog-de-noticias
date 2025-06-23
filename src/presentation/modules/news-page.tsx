@@ -2,11 +2,11 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, User } from "lucide-react";
-import { RichText } from "@graphcms/rich-text-react-renderer";
 import { Badge } from "@/components/ui/badge";
 import { getNewsBySlug } from "@/src/infra/functions";
 import { ShareButtons } from "../components/share-buttons";
 import { BackButton } from "../components/back-button";
+import { NewsDetails } from "../components/news-details";
 
 interface Props {
   slug: string;
@@ -70,59 +70,7 @@ export async function NewsSection({ slug }: Props) {
               {news.description}
             </div>
 
-            <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed">
-              <RichText
-                content={news.conteudo.raw}
-                renderers={{
-                  p: ({ children }) => <p className="mb-4">{children}</p>,
-                  img: ({ src, altText, height, width }) => (
-                    <Image
-                      src={src as string}
-                      alt={altText || ""}
-                      className="my-4 rounded"
-                      height={height}
-                      width={width}
-                    />
-                  ),
-                  h2: ({ children }) => (
-                    <h2 className="text-2xl font-bold my-4 text-[#2A5BDA]">
-                      {children}
-                    </h2>
-                  ),
-                  h3: ({ children }) => (
-                    <h3 className="text-xl font-semibold my-3 text-[#2A5BDA]">
-                      {children}
-                    </h3>
-                  ),
-                  h4: ({ children }) => (
-                    <h4 className="text-lg font-semibold my-2 text-[#2A5BDA]">
-                      {children}
-                    </h4>
-                  ),
-                  h5: ({ children }) => (
-                    <h5 className="text-base font-medium my-2 text-[#2A5BDA]">
-                      {children}
-                    </h5>
-                  ),
-                  h6: ({ children }) => (
-                    <h6 className="text-sm font-medium my-1 text-[#2A5BDA]">
-                      {children}
-                    </h6>
-                  ),
-                  blockquote: ({ children }) => (
-                    <blockquote className="border-l-4 border-[#2A5BDA] pl-4 italic my-4 text-gray-700">
-                      {children}
-                    </blockquote>
-                  ),
-                  ol: ({ children }) => (
-                    <ol className="list-decimal list-inside my-4 text-[#2A5BDA]">
-                      {children}
-                    </ol>
-                  ),
-                  li: ({ children }) => <li className="mb-1">{children}</li>,
-                }}
-              />
-            </div>
+           <NewsDetails news={news}/>
 
             <div className="mt-12 pt-8 border-t">
               <ShareButtons

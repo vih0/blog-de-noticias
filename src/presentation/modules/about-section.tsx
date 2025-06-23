@@ -1,4 +1,4 @@
-import { Mail, Linkedin, Twitter, BookOpen } from "lucide-react"
+import { Mail, BookOpen, Instagram, MessageCircle } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -26,6 +26,7 @@ export async function AboutSection({id}:Props) {
                 <div className="text-center md:text-left">
                   <h1 className="text-3xl md:text-4xl font-bold mb-2">{autor.name}</h1>
                   <p className="text-xl text-blue-100 mb-4">Comunicando e inovando na forma de distribuir informação</p>
+                  <p className="text-sm text-blue-100 mb-2">Me siga nas redes sociais</p>
                   <div className="flex flex-wrap justify-center md:justify-start gap-4">
                     <Button
                       variant="outline"
@@ -40,16 +41,16 @@ export async function AboutSection({id}:Props) {
                       size="sm"
                       className="bg-white/10 border-white/20 text-white hover:bg-white/20"
                     >
-                      <Linkedin className="h-4 w-4 mr-2" />
-                      LinkedIn
+                      <Instagram className="h-4 w-4 mr-2" />
+                      Instagram
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       className="bg-white/10 border-white/20 text-white hover:bg-white/20"
                     >
-                      <Twitter className="h-4 w-4 mr-2" />
-                      Twitter
+                      <MessageCircle className="h-4 w-4 mr-2" />
+                      Whatsapp
                     </Button>
                   </div>
                 </div>
@@ -62,7 +63,7 @@ export async function AboutSection({id}:Props) {
          
             <div className="lg:col-span-2 space-y-8">
               <Card>
-                <CardHeader>
+                <CardHeader className="pt-6">
                   <CardTitle className="flex items-center space-x-2">
                     <BookOpen className="h-5 w-5 text-blue-600" />
                     <span>Biografia</span>
@@ -75,19 +76,8 @@ export async function AboutSection({id}:Props) {
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle>Nossa Missão</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-700 leading-relaxed">
-                   {autor.mission}
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
+              {/* <Card>
+                <CardHeader className="pt-6">
                   <CardTitle>Nossos Valores</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -118,12 +108,33 @@ export async function AboutSection({id}:Props) {
                     </li>
                   </ul>
                 </CardContent>
+              </Card> */}
+                <Card>
+                <CardHeader className="pt-6">
+                  <CardTitle>Entre em Contato</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center space-x-2 text-gray-600">
+                    <Mail className="h-4 w-4" />
+                    <span>ClecioBertozzi@contato.com</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-gray-600">
+                    <Mail className="h-4 w-4" />
+                    <span>ClecioBertozzi@contato.com</span>
+                  </div>
+                  <div className="pt-4">
+                    <p className="text-sm text-gray-600">
+                      Tem uma sugestão de pauta ou quer colaborar conosco? Entre em contato através dos nossos canais
+                      oficiais.
+                    </p>
+                  </div>
+                </CardContent>
               </Card>
             </div>
 
          
               <Card>
-                <CardHeader>
+                <CardHeader className="pt-6">
                   <CardTitle>Áreas de Cobertura</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -138,27 +149,7 @@ export async function AboutSection({id}:Props) {
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle>Entre em Contato</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center space-x-2 text-gray-600">
-                    <Mail className="h-4 w-4" />
-                    <span>contato@newshub.com</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-gray-600">
-                    <Mail className="h-4 w-4" />
-                    <span>redacao@newshub.com</span>
-                  </div>
-                  <div className="pt-4">
-                    <p className="text-sm text-gray-600">
-                      Tem uma sugestão de pauta ou quer colaborar conosco? Entre em contato através dos nossos canais
-                      oficiais.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+            
             </div>
           </div>
         </div>
