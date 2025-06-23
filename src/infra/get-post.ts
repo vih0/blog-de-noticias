@@ -6,26 +6,31 @@ const GET_ALL_POSTS = gql`
  query GetPosts {
   posts {
     id
-    title
     slug
+    title
+    destaque
     description
-    content {
-      text
-    }
-    coverPhoto {
-      url
-    }
-    createdAt
-    autor {
+     category{
       name
-      id
-      photo{
-      url
+      corDaTag{
+        hex
       }
     }
-    category {
-      name
+    conteudo {
+      raw
     }
+    publishedAt
+    coverPhoto{
+      url
+    }
+    autor{
+      id
+      name
+      photo{
+        url
+      }
+    }
+    
   }
 }
 `;

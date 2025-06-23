@@ -1,14 +1,18 @@
+import { RichTextContent } from "@graphcms/rich-text-types";
+import { Category } from "./Categoria";
+
 export interface Post {
   id: string;
   title: string;
   slug: string;
-  createdAt: string;
+  publishedAt: string;
   description:string
+  destaque: boolean
   coverPhoto: {
     url: string;
   };
-  content:{
-    text:string
+  conteudo: {
+    raw: RichTextContent
   }
   autor: {
     id:string
@@ -17,7 +21,5 @@ export interface Post {
         url:string
     }
   };
-  category:{
-    name:string
-  }[]
+  category:Category[]
 }

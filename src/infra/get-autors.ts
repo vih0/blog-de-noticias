@@ -4,23 +4,32 @@ import client from "../external/lib/Apolloclient";
 
 const GET_ALL_AUTORS = gql`
 query GetAutor {
-  autors {
-    id
-    name
-    mision
-    photo {
-      url
-    }
+ autors {
     bio
     contato {
       href
-      id
       nome
     }
-    temasAbordados {
-      id
-      nome
+    id
+    name
+    photo {
+      url
     }
+    temasAbordados{
+      nome
+id
+    }
+  
+  }
+  posts{
+    slug
+    title
+    description
+		coverPhoto{
+      url
+    }
+    publishedAt
+    
   }
 }
 `;

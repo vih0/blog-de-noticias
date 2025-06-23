@@ -29,9 +29,9 @@ const formatDate = (dateString: string) => {
                   className="object-cover"
                 />
                 <div className="absolute top-4 left-4 flex gap-1.5">
-                  {news[0].category&& news[0].category.map((categorie, index) => (
-                    <Badge variant="default" key={index}>
-                      {categorie.name}
+                  {news[0].category&& news[0].category.map((category, index) => (
+                    <Badge style={{ backgroundColor: category.corDaTag.hex }} key={index}>
+                      {category.name}
                     </Badge>
                   ))}
                 </div>
@@ -41,7 +41,7 @@ const formatDate = (dateString: string) => {
                   {news[0].title}
                 </h2>
                 <p className="text-gray-600 mb-4 line-clamp-4 text-lg">
-                  {news[0].content.text}
+                  {news[0].description}
                 </p>
                 <div className="flex items-center text-sm text-gray-500 space-x-4">
                   <div className="flex items-center space-x-1">
@@ -50,7 +50,7 @@ const formatDate = (dateString: string) => {
                   </div>
                   <div className="flex items-center space-x-1">
                     <Clock className="h-4 w-4" />
-                    <span>{formatDate(news[0].createdAt)}</span>
+                    <span>{formatDate(news[0].publishedAt)}</span>
                   </div>
                 </div>
               </div>
@@ -72,7 +72,7 @@ const formatDate = (dateString: string) => {
                 />
                 <div className="absolute top-4 left-4 flex gap-1.5">
                   {news[0].category&& news[0].category.map((category,index)=>(
-                    <Badge variant="default" key={index}>{category.name}</Badge>
+                    <Badge style={{ backgroundColor: category.corDaTag.hex }} key={index}>{category.name}</Badge>
 
                   ))}
                 </div>
@@ -82,7 +82,7 @@ const formatDate = (dateString: string) => {
                   {news[1].title}
                 </h2>
                 <p className="text-gray-600 mb-4 line-clamp-3">
-                  {news[1].content.text}
+                  {news[1].description}
                 </p>
                 <div className="flex items-center text-sm text-gray-500 space-x-3">
                   <div className="flex items-center space-x-1">
@@ -91,7 +91,7 @@ const formatDate = (dateString: string) => {
                   </div>
                   <div className="flex items-center space-x-1">
                     <Clock className="h-4 w-4" />
-                    <span>{news[1].createdAt}</span>
+                    <span>{formatDate(news[1].publishedAt)}</span>
                   </div>
                 </div>
               </div>

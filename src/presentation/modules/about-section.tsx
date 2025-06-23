@@ -3,14 +3,14 @@ import { Mail, Linkedin, Twitter, BookOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BackButton } from "../components/back-button"
-import { getAuthorBySlug } from "@/src/infra/functions"
+import { getAuthorById } from "@/src/infra/functions"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 interface Props {
   id:string
 }
 export async function AboutSection({id}:Props) {
-  const autor = await getAuthorBySlug(id)
+  const autor = await getAuthorById(id)
   if(!autor){
     return notFound()
   }
