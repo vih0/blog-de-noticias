@@ -44,5 +44,6 @@ export async function getAllPosts() {
 
   return {
     posts: data?.posts || [],
+
   };
 }

@@ -14,6 +14,7 @@ export async function AboutSection({id}:Props) {
   if(!autor){
     return notFound()
   }
+  console.log(autor)
   return (
     <div className="min-h-screen max-w-4xl mx-auto bg-gray-50 mt-6">
        <BackButton/>
@@ -76,39 +77,7 @@ export async function AboutSection({id}:Props) {
                 </CardContent>
               </Card>
 
-              {/* <Card>
-                <CardHeader className="pt-6">
-                  <CardTitle>Nossos Valores</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3 text-gray-700">
-                    <li className="flex items-start space-x-2">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
-                      <span>
-                        <strong>Integridade:</strong> Compromisso com a verdade e transparência em tudo que fazemos
-                      </span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
-                      <span>
-                        <strong>Qualidade:</strong> Excelência editorial e rigor jornalístico em cada publicação
-                      </span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
-                      <span>
-                        <strong>Acessibilidade:</strong> Informação clara e compreensível para todos os públicos
-                      </span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
-                      <span>
-                        <strong>Inovação:</strong> Uso de tecnologia para melhorar a experiência do leitor
-                      </span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card> */}
+         
                 <Card>
                 <CardHeader className="pt-6">
                   <CardTitle>Entre em Contato</CardTitle>

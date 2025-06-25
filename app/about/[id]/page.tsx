@@ -4,7 +4,7 @@ interface AboutPageProps {
     id: string
   }
 }
-export default function AboutPage({params}:AboutPageProps) {
-  const {id} = params
+export default async function AboutPage({params}:AboutPageProps) {
+  const {id} =await  params
   return <AboutSection id={id} />;
 }

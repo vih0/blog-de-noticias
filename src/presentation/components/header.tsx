@@ -7,8 +7,7 @@ export function Header() {
       <div className="container mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <p className="h-8 w-8 text-blue-600 font-extrabold text-2xl">CB</p>
-            <span className="text-xl font-bold text-gray-900">Clecio Bertozzi</span>
+            <p className="text-xl font-bold text-blue-600">Clecio Bertozzi</p>
           </Link>
 
           <div className="flex items-center space-x-6">

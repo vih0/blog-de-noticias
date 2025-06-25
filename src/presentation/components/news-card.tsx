@@ -4,13 +4,15 @@ import { Calendar, User } from "lucide-react"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Post } from "@/src/dtos/Post"
+import { Skeleton } from "@/components/ui/skeleton"
 
 
 interface NewsCardProps {
   news: Post
+  loading:boolean
 }
 
-export function NewsCard({ news }: NewsCardProps) {
+export function NewsCard({ news,loading }: NewsCardProps) {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("pt-BR", {
       year: "numeric",
@@ -18,7 +20,10 @@ export function NewsCard({ news }: NewsCardProps) {
       day: "numeric",
     })
   }
-
+  if(loading){
+    return <Skeleton className="h-48 w-full"/>
+  }
+  console.log(news.autor?.name)
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <Link href={`/news/${news.slug}`}>
@@ -50,7 +55,7 @@ export function NewsCard({ news }: NewsCardProps) {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
               <User className="h-4 w-4" />
-              <span>{news.autor.name}</span>
+              <span>{news.autor?.name}</span>
             </div>
             <div className="flex items-center space-x-1">
               <Calendar className="h-4 w-4" />

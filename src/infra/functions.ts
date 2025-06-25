@@ -6,12 +6,12 @@ import { getAllPosts } from './get-post';
 
 
 export async function getNewsBySlug(slug: string): Promise<Post | undefined> {
-  const fetchedProducts = await getAllPosts();
-  if (!fetchedProducts || !fetchedProducts.posts) {
+  const fetchedPosts = await getAllPosts();
+  if (!fetchedPosts || !fetchedPosts.posts) {
     return undefined;
   }
 
-  return fetchedProducts.posts.find((news) => news.slug === slug);
+  return fetchedPosts.posts.find((news) => news.slug === slug);
 }
 export async function getAuthorById(id: string): Promise<Author | undefined> {
   const fetchedAutors = await getAllAuthors();
@@ -23,3 +23,10 @@ export async function getAuthorById(id: string): Promise<Author | undefined> {
   return fetchedAutors.autors.find((autor) => autor.id === id);
 }
 
+export async function getPostsByAutor(autorId:string):Promise<Post[] | undefined> {
+  const fetchedPosts = await getAllPosts();
+ if(!fetchedPosts || !fetchedPosts.posts) {
+  return undefined;
+}
+  return fetchedPosts.posts.filter(post=>post.autor.id === autorId)
+}

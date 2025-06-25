@@ -1,12 +1,14 @@
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Post } from "@/src/dtos/Post";
 import { Clock, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 type Props = {
   news: Post[];
+  loading:boolean
 };
-export function HeroNews({ news }: Props) {
+export function HeroNews({ news,loading }: Props) {
 const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("pt-BR", {
       year: "numeric",
@@ -14,11 +16,11 @@ const formatDate = (dateString: string) => {
       day: "numeric",
     });
   };
-
+ console.log()
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      {news[0] && (
-        <div className="lg:col-span-2 h-full">
+      {!loading ?(
+           <div className="lg:col-span-2 h-full">
           <Link href={`/news/${news[0].slug}`} className="group block  h-full">
             <div className="flex flex-col md:flex-row gap-6 bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-300  h-full">
               <div className="relative md:w-2/4 h-64 md:h-80">
@@ -57,9 +59,11 @@ const formatDate = (dateString: string) => {
             </div>
           </Link>
         </div>
+      ): (
+        <Skeleton className="lg:col-span-2 h-full"/>
       )}
 
-      {news[1] && (
+      {!loading?(
         <div className="lg:col-span-1">
           <Link href={`/news/${news[1].slug}`} className="group block  h-full">
             <div className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full">
@@ -98,7 +102,7 @@ const formatDate = (dateString: string) => {
             </div>
           </Link>
         </div>
-      )}
+      ):(<Skeleton className="lg:col-span-1"/>)}
     </div>
   );
 }
